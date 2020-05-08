@@ -60,7 +60,9 @@ class _todouiState extends State<todo>{
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              TextField(),
+              TextField(
+                autofocus: true,
+              ),
               Row(children: <Widget>[
                 RaisedButton(
                   onPressed: (){},
@@ -95,7 +97,8 @@ class _todouiState extends State<todo>{
         child: Column(
           children: <Widget>[
             mycard("Meeting"),
-            mycard("Go out")
+            mycard("Go out"),
+            mycard("check email")
           ],
         ),
       ),
