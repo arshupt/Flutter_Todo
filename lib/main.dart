@@ -52,34 +52,44 @@ class _todouiState extends State<todo>{
   void showalertdialog(){
     showDialog(
         context: context,
+
         builder: (context){
           return StatefulBuilder(builder:(context, setState){
           return AlertDialog(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0)
             ),
-            title: Text(
-              "Add Task",
-            ),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                TextField(
-                  autofocus: true,
-                ),
-                Row(children: <Widget>[
-                  RaisedButton(
-                    onPressed: (){},
-                    child: Text(
-                        "ADD"
-                    ),
-                  )
-                ],)
+          title: Text(
+            "Add Task",
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              TextField(
+                autofocus: true,
+              ),
+              Padding(
+                padding:EdgeInsets.only(
+                    top:10.0
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                RaisedButton(
+                  onPressed: (){},
+                  color: Colors.red,
+                  child: Text(
+                      "ADD"
+                  ),
+                )
               ],
-            ),
-          );
-          });
+              ),
+              ),
+            ],
+          ),
+        ),
         }
+
     );
   }
 
