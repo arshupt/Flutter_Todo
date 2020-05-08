@@ -30,11 +30,6 @@ class todo extends StatefulWidget {
 class _todouiState extends State<todo>{
   final dbhelper = Databasehelper.instance;
 
-
-
-
-
-
   Widget mycard(String task){
     return Card(
       elevation: 5.0,
