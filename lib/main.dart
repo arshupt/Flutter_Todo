@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'dbhelper.dart';
+
 void main() => runApp(MyApp());
 class MyApp extends StatefulWidget {
   @override
@@ -26,7 +28,7 @@ class todo extends StatefulWidget {
 }
 
 class _todouiState extends State<todo>{
-
+  final dbhelper = Databasehelper.instance;
   Widget mycard(String task){
     return Card(
       elevation: 5.0,
@@ -50,30 +52,34 @@ class _todouiState extends State<todo>{
   void showalertdialog(){
     showDialog(
         context: context,
-        builder: (context)=> AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0)
-          ),
-          title: Text(
-            "Add Task",
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              TextField(
-                autofocus: true,
-              ),
-              Row(children: <Widget>[
-                RaisedButton(
-                  onPressed: (){},
-                  child: Text(
-                      "ADD"
-                  ),
-                )
-              ],)
-            ],
-          ),
-        ),
+        builder: (context){
+          return StatefulBuilder(builder:(context, setState){
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)
+            ),
+            title: Text(
+              "Add Task",
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                TextField(
+                  autofocus: true,
+                ),
+                Row(children: <Widget>[
+                  RaisedButton(
+                    onPressed: (){},
+                    child: Text(
+                        "ADD"
+                    ),
+                  )
+                ],)
+              ],
+            ),
+          );
+          });
+        }
     );
   }
 
