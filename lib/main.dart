@@ -29,6 +29,12 @@ class todo extends StatefulWidget {
 
 class _todouiState extends State<todo>{
   final dbhelper = Databasehelper.instance;
+
+
+
+
+
+
   Widget mycard(String task){
     return Card(
       elevation: 5.0,
@@ -49,47 +55,50 @@ class _todouiState extends State<todo>{
   }
   @override
 
-  void showalertdialog(){
+  void showalertdialog() {
     showDialog(
         context: context,
 
-        builder: (context){
-          return StatefulBuilder(builder:(context, setState){
-          return AlertDialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0)
-            ),
-          title: Text(
-            "Add Task",
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              TextField(
-                autofocus: true,
+        builder: (context) {
+          return StatefulBuilder(builder: (context, setState) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)
               ),
-              Padding(
-                padding:EdgeInsets.only(
-                    top:10.0
+              title: Text(
+                "Add Task",
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                RaisedButton(
-                  onPressed: (){},
-                  color: Colors.red,
-                  child: Text(
-                      "ADD"
+                  TextField(
+                    autofocus: true,
                   ),
-                )
-              ],
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: 10.0
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        RaisedButton(
+                          onPressed: () {},
+                          color: Colors.red,
+                          child: Text(
+                              "ADD"
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              ),
-            ],
-          ),
-        ),
-        }
+            );
 
+          }
+
+          );
+        }
     );
   }
 
