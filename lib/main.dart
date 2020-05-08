@@ -15,7 +15,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Todo',
       theme: ThemeData.dark().copyWith(
-        accentColor: Colors.red,
+        accentColor: Colors.blue,
       ),
       home: todo(),
     );
