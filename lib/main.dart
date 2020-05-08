@@ -63,14 +63,23 @@ class _todouiState extends State<todo>{
               TextField(
                 autofocus: true,
               ),
-              Row(children: <Widget>[
+              Padding(
+                padding:EdgeInsets.only(
+                    top:10.0
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
                 RaisedButton(
                   onPressed: (){},
+                  color: Colors.red,
                   child: Text(
                       "ADD"
                   ),
                 )
-              ],)
+              ],
+              ),
+              ),
             ],
           ),
         ),
