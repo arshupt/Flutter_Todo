@@ -181,9 +181,9 @@ class _todouiState extends State<todo>{
   }
 
 
-  void alertDialog(int id,String str) {
+  void alertDialog(int id,String str1) {
     texteditingcontroller.text = "";
-    todoupdate=str;
+    todoupdate=str1;
     showDialog(
         context: context,
         builder: (context) {
@@ -199,7 +199,7 @@ class _todouiState extends State<todo>{
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   TextField(
-                      controller: texteditingcontroller..text=str,
+                      controller: texteditingcontroller..text=str1,
                       autofocus: true,
                       maxLines: null,
                       keyboardType: TextInputType.multiline,
@@ -223,7 +223,7 @@ class _todouiState extends State<todo>{
                             if(texteditingcontroller.text.isEmpty){
                               setState(() {
                                 errtext = "Cannot leave empty";
-                                todoupdate=str;
+                                todoupdate=str1;
                                 validated = false;
                               });
                             }else if(texteditingcontroller.text.length > 200){
