@@ -88,28 +88,9 @@ class _todouiState extends State<todo>{
   }
 
 
- /* Widget mycard(String task){
-   return Card(
-      elevation: 5.0,
-      margin: EdgeInsets.symmetric(
-        horizontal: 10.0,
-        vertical: 5.0,
-     ),
-      child: Container(
-        padding: EdgeInsets.all(5.0),
-        child: ListTile(
-          title: Text(
-            "$task",
-          ),
-          onLongPress: (){},
-        ),
-      ),
-    );
-  }
-  */
+
 
   @override
-
   void showalertdialog() {
     texteditingcontroller.text = "";
     showDialog(
@@ -205,7 +186,7 @@ class _todouiState extends State<todo>{
               ),
               body: Center(
                 child: Text(
-                  "No task available",
+                  "No Task Available",
                 )
               )
 
@@ -233,9 +214,7 @@ class _todouiState extends State<todo>{
 
             );
           }
-
         }
-
       },
       future: query(),
     );
@@ -245,28 +224,3 @@ class _todouiState extends State<todo>{
 }
 
 
-/*Scaffold(
-floatingActionButton: FloatingActionButton(
-onPressed: showalertdialog,
-child: Icon(
-Icons.add,
-color: Colors.white,
-),
-backgroundColor: Colors.red,
-),
-appBar: AppBar(
-title: Text("ToDo"),
-backgroundColor: Colors.black,
-centerTitle: true,
-),
-backgroundColor: Colors.black,
-body: SingleChildScrollView(
-child: Column(
-children: <Widget>[
-mycard("Meeting"),
-mycard("Go out"),
-mycard("check email")
-],
-),
-),
-);*/
