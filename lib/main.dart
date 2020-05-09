@@ -39,7 +39,7 @@ class _todouiState extends State<todo>{
 
   String todoedited = "";
   var myitems = List();
-  List<Widget> childern =new List<Widget>();
+  List<Widget> children =new List<Widget>();
 
   void addtodo() async {
     Map<String, dynamic> row = {
@@ -48,13 +48,21 @@ class _todouiState extends State<todo>{
     final id = await dbhelper.insert(row);
     print(id);
     Navigator.pop(context);
+    todoedited = "";
+    setState(() {
+      validated=true;
+      errtext="";
+    });
   }
 
+
   Future<bool> query() async {
+    myitems = [];
+    children = [];
     var allrows = await dbhelper.queryall();
     allrows.forEach((row) {
       myitems.add(row.toString());
-      childern.add(Card(
+      children.add(Card(
         elevation: 5.0,
         margin: EdgeInsets.symmetric(
           horizontal: 10.0,
@@ -80,13 +88,13 @@ class _todouiState extends State<todo>{
   }
 
 
-  Widget mycard(String task){
-    return Card(
+ /* Widget mycard(String task){
+   return Card(
       elevation: 5.0,
       margin: EdgeInsets.symmetric(
         horizontal: 10.0,
         vertical: 5.0,
-      ),
+     ),
       child: Container(
         padding: EdgeInsets.all(5.0),
         child: ListTile(
@@ -98,9 +106,12 @@ class _todouiState extends State<todo>{
       ),
     );
   }
+  */
+
   @override
 
   void showalertdialog() {
+    texteditingcontroller.text = "";
     showDialog(
         context: context,
         builder: (context) {
@@ -214,7 +225,11 @@ class _todouiState extends State<todo>{
                   backgroundColor: Colors.black,
                   centerTitle: true,
                 ),
-               // body: Flutterlogo(),
+                body: SingleChildScrollView(
+                  child: Column(
+                    children: children,
+                  ),
+                ),
 
             );
           }
@@ -226,6 +241,7 @@ class _todouiState extends State<todo>{
     );
 
   }
+
 }
 
 
