@@ -50,9 +50,9 @@ class Databasehelper {
     await db.execute('''
       CREATE TABLE $table (
         $columnID INTEGER PRIMARY KEY,
-        $columnName TEXT NOT NULL,
+        $columnName TEXT NOT NULL
         
-      )
+      );
       ''');
   }
 
