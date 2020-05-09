@@ -30,6 +30,56 @@ class todo extends StatefulWidget {
 class _todouiState extends State<todo>{
   final dbhelper = Databasehelper.instance;
 
+
+
+
+  final texteditingcontroller = TextEditingController();
+  bool validated = true;
+  String errtext = "";
+
+  String todoedited = "";
+  var myitems = List();
+  List<Widget> childern =new List<Widget>();
+
+  void addtodo() async {
+    Map<String, dynamic> row = {
+      Databasehelper.columnName : todoedited,
+    };
+    final id = await dbhelper.insert(row);
+    print(id);
+    Navigator.pop(context);
+  }
+
+  Future<bool> query() async {
+    var allrows = await dbhelper.queryall();
+    allrows.forEach((row) {
+      myitems.add(row.toString());
+      childern.add(Card(
+        elevation: 5.0,
+        margin: EdgeInsets.symmetric(
+          horizontal: 10.0,
+          vertical: 5.0,
+        ),
+        child: Container(
+          padding: EdgeInsets.all(5.0),
+          child: ListTile(
+            title: Text(
+              row['todo'],
+            ),
+            onLongPress: (){
+              dbhelper.deletedata(row['id']);
+              setState(() {
+
+              });
+            },
+          ),
+        ),
+      ));
+    });
+    return Future.value(true);
+  }
+
+
   Widget mycard(String task){
     return Card(
       elevation: 5.0,
@@ -66,7 +116,14 @@ class _todouiState extends State<todo>{
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   TextField(
+                    controller: texteditingcontroller,
                     autofocus: true,
+                    onChanged: (_val){
+                      todoedited = _val;
+                    },
+                    decoration: InputDecoration(
+                      errorText: validated ? null : errtext,
+                    )
                   ),
                   Padding(
                     padding: EdgeInsets.only(
@@ -76,7 +133,20 @@ class _todouiState extends State<todo>{
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         RaisedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if(texteditingcontroller.text.isEmpty){
+                              setState(() {
+                                errtext = "Cannot leave empty";
+                                validated = false;
+                              });
+                            }else if(texteditingcontroller.text.length > 200){
+                              setState(() {
+                                errtext = "Character limit exceeded";
+                              });
+                            }else{
+                              addtodo();
+                            }
+                          },
                           color: Colors.red,
                           child: Text(
                               "ADD"
@@ -97,32 +167,90 @@ class _todouiState extends State<todo>{
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: showalertdialog,
-        child: Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
-        backgroundColor: Colors.red,
-      ),
-      appBar: AppBar(
-        title: Text("ToDo"),
-        backgroundColor: Colors.black,
-        centerTitle: true,
-      ),
-      backgroundColor: Colors.black,
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            mycard("Meeting"),
-            mycard("Go out"),
-            mycard("check email")
-          ],
-        ),
-      ),
+    return FutureBuilder(
+      builder: (context, snap){
+        // ignore: missing_return
+        if(snap.hasData == null){
+          return Center(
+            child: Text(
+              "NO DATA",
+            )
+          );
+        }else{
+          if(myitems.length == 0){
+            return Scaffold(
+              floatingActionButton: FloatingActionButton(
+                onPressed: showalertdialog,
+                child: Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
+                backgroundColor: Colors.red,
+              ),
+              appBar: AppBar(
+                title: Text("ToDo"),
+                backgroundColor: Colors.black,
+                centerTitle: true,
+              ),
+              body: Center(
+                child: Text(
+                  "No task available",
+                )
+              )
+
+            );
+          }else{
+            return Scaffold(
+                floatingActionButton: FloatingActionButton(
+                  onPressed: showalertdialog,
+                  child: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
+                  backgroundColor: Colors.red,
+                ),
+                appBar: AppBar(
+                  title: Text("ToDo"),
+                  backgroundColor: Colors.black,
+                  centerTitle: true,
+                ),
+               // body: Flutterlogo(),
+
+            );
+          }
+
+        }
+
+      },
+      future: query(),
     );
 
   }
 }
 
+
+/*Scaffold(
+floatingActionButton: FloatingActionButton(
+onPressed: showalertdialog,
+child: Icon(
+Icons.add,
+color: Colors.white,
+),
+backgroundColor: Colors.red,
+),
+appBar: AppBar(
+title: Text("ToDo"),
+backgroundColor: Colors.black,
+centerTitle: true,
+),
+backgroundColor: Colors.black,
+body: SingleChildScrollView(
+child: Column(
+children: <Widget>[
+mycard("Meeting"),
+mycard("Go out"),
+mycard("check email")
+],
+),
+),
+);*/
