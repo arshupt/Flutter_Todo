@@ -38,6 +38,7 @@ class _todouiState extends State<todo>{
   String errtext = "";
 
   String todoedited = "";
+  String todoupdate = "";
   var myitems = List();
   List<Widget> children =new List<Widget>();
 
@@ -49,6 +50,18 @@ class _todouiState extends State<todo>{
     print(id);
     Navigator.pop(context);
     todoedited = "";
+    setState(() {
+      validated=true;
+      errtext="";
+    });
+  }
+  void updatetodo(int id) async {
+    Map<String, dynamic> row = {
+      Databasehelper.columnName : todoupdate,
+    };
+    dbhelper.updateTodo(id,row);
+    Navigator.pop(context);
+    todoupdate = "";
     setState(() {
       validated=true;
       errtext="";
@@ -79,6 +92,9 @@ class _todouiState extends State<todo>{
               setState(() {
 
               });
+            },
+            onTap: (){
+              alertDialog(row['id'],row['todo']);
             },
           ),
         ),
@@ -142,6 +158,76 @@ class _todouiState extends State<todo>{
                           color: Colors.red,
                           child: Text(
                               "ADD"
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+
+          }
+
+          );
+        }
+    );
+  }
+
+
+  void alertDialog(int id,String str1) {
+    texteditingcontroller.text = "";
+    showDialog(
+        context: context,
+        builder: (context) {
+          return StatefulBuilder(builder: (context, setState) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)
+              ),
+              title: Text(
+                "Edit Task",
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  TextField(
+                      controller: texteditingcontroller..text=str1,
+                      autofocus: true,
+
+                      onChanged: (_val){
+
+                        todoupdate = _val;
+                      },
+                      decoration: InputDecoration(
+                        errorText: validated ? null : errtext,
+                      )
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: 10.0
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        RaisedButton(
+                          onPressed: () {
+                            if(texteditingcontroller.text.isEmpty){
+                              setState(() {
+                                errtext = "Cannot leave empty";
+                                validated = false;
+                              });
+                            }else if(texteditingcontroller.text.length > 200){
+                              setState(() {
+                                errtext = "Character limit exceeded";
+                              });
+                            }else{
+                              updatetodo(id);
+                            }
+                          },
+                          color: Colors.red,
+                          child: Text(
+                              "UPDATE"
                           ),
                         )
                       ],

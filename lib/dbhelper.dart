@@ -75,4 +75,11 @@ class Databasehelper {
     return res;
   }
 
+  Future<int> updateTodo(int id, Map<String, dynamic> row) async {
+    var db = await instance.databse;
+    var res = await db.update(table, row, where: "id = ?", whereArgs: [id]);
+    return res;
+  }
+
+
 }
