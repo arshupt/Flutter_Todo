@@ -175,7 +175,7 @@ class _todouiState extends State<todo>{
   }
 
 
-  void alertDialog(int id,String str) {
+  void alertDialog(int id,String str1) {
     texteditingcontroller.text = "";
     showDialog(
         context: context,
@@ -192,7 +192,7 @@ class _todouiState extends State<todo>{
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   TextField(
-                      controller: texteditingcontroller..text=str,
+                      controller: texteditingcontroller..text=str1,
                       autofocus: true,
 
                       onChanged: (_val){
