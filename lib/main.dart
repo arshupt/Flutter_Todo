@@ -223,6 +223,7 @@ class _todouiState extends State<todo>{
                             if(texteditingcontroller.text.isEmpty){
                               setState(() {
                                 errtext = "Cannot leave empty";
+                                todoupdate=str;
                                 validated = false;
                               });
                             }else if(texteditingcontroller.text.length > 200){
