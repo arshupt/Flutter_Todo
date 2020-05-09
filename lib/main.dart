@@ -177,6 +177,7 @@ class _todouiState extends State<todo>{
 
   void alertDialog(int id,String str) {
     texteditingcontroller.text = "";
+    todoupdate=str;
     showDialog(
         context: context,
         builder: (context) {
@@ -194,9 +195,7 @@ class _todouiState extends State<todo>{
                   TextField(
                       controller: texteditingcontroller..text=str,
                       autofocus: true,
-
                       onChanged: (_val){
-
                         todoupdate = _val;
                       },
                       decoration: InputDecoration(
