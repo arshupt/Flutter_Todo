@@ -88,6 +88,7 @@ class _todouiState extends State<todo>{
               row['todo'],
             ),
             onLongPress: (){
+
               dbhelper.deletedata(row['id']);
               setState(() {
 
@@ -126,6 +127,11 @@ class _todouiState extends State<todo>{
                   TextField(
                     controller: texteditingcontroller,
                     autofocus: true,
+                      textCapitalization: TextCapitalization.sentences,
+
+                      maxLines: null,
+                      keyboardType: TextInputType.multiline,
+                      textInputAction: TextInputAction.newline,
                     onChanged: (_val){
                       todoedited = _val;
                     },
@@ -195,6 +201,9 @@ class _todouiState extends State<todo>{
                   TextField(
                       controller: texteditingcontroller..text=str,
                       autofocus: true,
+                      maxLines: null,
+                      keyboardType: TextInputType.multiline,
+                      textInputAction: TextInputAction.newline,
                       onChanged: (_val){
                         todoupdate = _val;
                       },
@@ -287,7 +296,7 @@ class _todouiState extends State<todo>{
                   backgroundColor: Colors.red,
                 ),
                 appBar: AppBar(
-                  title: Text("ToDo"),
+                  title: Text("To-Do"),
                   backgroundColor: Colors.black,
                   centerTitle: true,
                 ),
