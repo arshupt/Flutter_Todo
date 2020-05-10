@@ -81,22 +81,35 @@ class _todouiState extends State<todo>{
           horizontal: 10.0,
           vertical: 5.0,
         ),
+
         child: Container(
           padding: EdgeInsets.all(5.0),
+
           child: ListTile(
+
             title: Text(
               row['todo'],
+
             ),
-            onLongPress: (){
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                GestureDetector(
+                  child: Icon(Icons.delete,color: Colors.red,),
+                  onTap: () {
+                    dbhelper.deletedata(row['id']);
+                    setState(() {
 
-              dbhelper.deletedata(row['id']);
-              setState(() {
+                    });
+                  },
+                ),
+              ],
+            ),
 
-              });
-            },
             onTap: (){
               alertDialog(row['id'],row['todo']);
             },
+
           ),
         ),
       ));
@@ -281,7 +294,7 @@ class _todouiState extends State<todo>{
               ),
               body: Center(
                 child: Text(
-                  "No Task Available",
+                  "No Task Added Yet",
                 )
               )
 
@@ -317,5 +330,8 @@ class _todouiState extends State<todo>{
   }
 
 }
+
+
+
 
 
